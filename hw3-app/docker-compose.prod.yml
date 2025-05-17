@@ -13,11 +13,14 @@ services:
 
   mongo:
     image: mongo:6
+    ports:
+      - "27017:27017"
     env_file:
       - .env
       - .env.prod
     volumes:
       - mongo_data:/data/db
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
 
   dex:
     build:

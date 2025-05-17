@@ -7,6 +7,12 @@ header { /* aligning all the elements in the header to make them center and adju
   border-bottom: 1px solid #cdcdcd;
 }
 
+.account-info { /* adjusting now to the right side*/
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+
 .date { /* adjusting now to the left side*/
   position: absolute;
   font-weight: bold;

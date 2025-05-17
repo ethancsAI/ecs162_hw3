@@ -7,6 +7,7 @@
 
   let apiKey: string = '';
   let articles: any[] = [];
+  let userEmail = null;
 
   onMount(async () => {
     try {
@@ -23,6 +24,15 @@
     } catch (error) {
       console.error('Failed to fetch API key:', error);
     }
+    try {
+      const res = await fetch("/me", { credentials: "include" });
+      if (res.ok) {
+        const data = await res.json();
+        userEmail = data.email;
+      }
+    } catch (err) {
+      console.error("Failed to fetch user", err);
+    }
   });
 </script>
 
@@ -32,6 +42,16 @@
       <img src={nytlogo} class="logo" alt="NYT Logo" />
     </div>
     <p class="date"></p>
+    {#if userEmail}
+      <div class="account-info">
+        <strong>Account:</strong> {userEmail}
+        <a href="/logout">Logout</a>
+      </div>
+    {:else}
+      <button class="account-info login-btn" on:click={() => window.location.href = '/login'}>
+        Log in
+      </button>
+    {/if}
     <p class="paper">Today's Paper</p>
   </header>
   <div class="grid-container">
