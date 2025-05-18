@@ -112,6 +112,64 @@ section {
 section:last-child {
   border-bottom: none; /* removes bottom border from the last section */
 }
+.account-dropdown {
+  position: relative;
+}
+
+.account-btn {
+  position: absolute;
+  right: 20px;
+  top: -100px;
+}
+
+.arrow {
+  font-size: 10px;
+  transition: transform 0.3s ease;
+}
+
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 100;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 100%;
+  background-color: white;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  z-index: 101;
+  padding: 20px;
+  transform: translateX(0);
+  transition: transform 0.3s ease;
+}
+
+.sidebar-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.logout-btn {
+  padding: 8px 16px;
+  color: rgb(0, 0, 0);
+  background-color:#ffffff;
+  width: fit-content;
+}
+
+
+.email-info {
+  padding: 12px;
+  border-radius: 4px;
+  background-color: #f5f5f5;
+}
 
 /* mobile */
 @media only screen and (max-width: 767px) {

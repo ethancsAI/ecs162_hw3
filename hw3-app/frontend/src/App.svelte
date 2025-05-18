@@ -8,6 +8,7 @@
   let apiKey: string = '';
   let articles: any[] = [];
   let userEmail = null;
+  let showSidebar = false;
 
   onMount(async () => {
     try {
@@ -34,6 +35,14 @@
       console.error("Failed to fetch user", err);
     }
   });
+
+  function toggleSidebar() {
+    showSidebar = !showSidebar;
+  }
+
+  function logout() {
+    window.location.href = '/logout';
+  }
 </script>
 
 <main>
@@ -43,27 +52,29 @@
     </div>
     <p class="date"></p>
     {#if userEmail}
-      <div class="account-info">
-        <strong>Account:</strong> {userEmail}
-        <a href="/logout">Logout</a>
+      <div class="account-dropdown">
+        <button class="account-btn" on:click={toggleSidebar}>
+          Account <span class="arrow">▼</span>
+        </button>
       </div>
     {:else}
-    <button class="account-info login-btn" on:click={() => window.location.href = '/login'}>
-      Log in
-    </button>
+      <button class="account-info login-btn" on:click={() => window.location.href = '/login'}>
+        Log in
+      </button>
     {/if}
     <p class="paper">Today's Paper</p>
   </header>
+  
   <div class="grid-container">
     {#each articles as article}
       <section class="article-card">
         {#if article.multimedia?.default?.url}
           <img
             src={article.multimedia.default.url} 
-            alt={article.headline.main}x
+            alt={article.headline.main}
             class="responsive-img"
           />
-          {:else}
+        {:else}
           <img
             src="images/image2.png"
             alt="No image"
@@ -80,10 +91,33 @@
       </section>
     {/each}
   </div>
+  
+  {#if showSidebar && userEmail}
+    <div class="sidebar-overlay" on:click={toggleSidebar}></div>
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <span>{userEmail}</span>
+        <button class="close-btn" on:click={toggleSidebar}>✕</button>
+      </div>
+      <div class="sidebar-content">
+        <div class="greeting">
+          <p>Good afternoon.</p>
+        </div>
+        <div class="logout-container">
+          <button class="logout-btn" on:click={logout}>
+            Log out
+            <span class="hand-icon"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  {/if}
+  
   <footer>
     <p></p>
   </footer>
 </main>
 
 <style>
+  
 </style>
