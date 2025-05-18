@@ -59,14 +59,23 @@ def home():
 def login():
     session['nonce'] = nonce
     redirect_uri = 'http://localhost:8000/authorize'
-    return oauth.flask_app.authorize_redirect(redirect_uri, nonce=nonce)
+    #return oauth.flask_app.authorize_redirect(redirect_uri, nonce=nonce)
+    client = oauth.create_client(os.getenv("OIDC_CLIENT_NAME"))
+    return client.authorize_redirect(redirect_uri, nonce=nonce)
+
 
 @app.route('/authorize')
 def authorize():
-    token = oauth.flask_app.authorize_access_token()
-    nonce = session.get('nonce')
+    #token = oauth.flask_app.authorize_access_token()
+    #nonce = session.get('nonce')
 
-    user_info = oauth.flask_app.parse_id_token(token, nonce=nonce)  # or use .get('userinfo').json()
+    #user_info = oauth.flask_app.parse_id_token(token, nonce=nonce)  # or use .get('userinfo').json()
+    #session['user'] = user_info
+    #return redirect('/')
+    client = oauth.create_client(os.getenv("OIDC_CLIENT_NAME"))
+    token = client.authorize_access_token()
+    nonce = session.get('nonce')
+    user_info = client.parse_id_token(token, nonce=nonce)
     session['user'] = user_info
     return redirect('/')
 

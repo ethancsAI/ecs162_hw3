@@ -48,9 +48,9 @@
         <a href="/logout">Logout</a>
       </div>
     {:else}
-      <button class="account-info login-btn" on:click={() => window.location.href = '/login'}>
-        Log in
-      </button>
+    <button class="account-info login-btn" on:click={() => window.location.href = '/login'}>
+      Log in
+    </button>
     {/if}
     <p class="paper">Today's Paper</p>
   </header>
