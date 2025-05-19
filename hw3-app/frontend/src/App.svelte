@@ -3,13 +3,16 @@
   import svelteLogo from './assets/svelte.svg';
   import viteLogo from '/vite.svg';
   import Counter from './lib/Counter.svelte';
-  import nytlogo from './assets/logo.png'
+  import nytlogo from './assets/logo.png';
+  import comment from './assets/comment.png';
 
   let apiKey: string = '';
   let articles: any[] = [];
   let userEmail = null;
   let showSidebar = false;
-
+  function handleCommentClick(articleId: string) {
+    console.log(`Comments clicked for article: ${articleId}`);
+  }
   onMount(async () => {
     try {
       const res = await fetch('/api/key');
@@ -88,6 +91,18 @@
         {:else}
           <p>{article.snippet}</p>
         {/if}
+        <div class="comment-button-container">
+          <button 
+            class="comment-button" 
+            on:click={() => handleCommentClick(article._id)}
+            aria-label="View comments"
+          >
+          <span class="comment-icon">
+            <img src={comment} alt="Comments" class="comment-icon-img" />
+          </span>
+            <span class="comment-count">{article.commentCount}</span>
+          </button>
+        </div>
       </section>
     {/each}
   </div>
