@@ -137,9 +137,27 @@
       console.error('Error deleting comment:', error);
     }
   }*/
-  async function deleteComment(commentId) {
-    await fetch(`/api/comments/${commentId}`, { method: 'DELETE' });
-    await loadComments(); // reload updated list
+  async function deleteComment(commentId: string) {
+    if (!isAdmin) return;
+
+    const articleTitle = selectedArticle.headline.main;
+    try {
+      const res = await fetch(
+        `/api/comments/${encodeURIComponent(articleTitle)}/${encodeURIComponent(commentId)}`,
+        {
+          method: 'DELETE',
+          credentials: 'include'
+        }
+      );
+
+      if (res.ok) {
+        await loadComments(articleTitle);
+      } else {
+        console.error('Failed to delete comment:', await res.text());
+      }
+    } catch (error) {
+      console.error('Error deleting comment:', error);
+    }
   }
 
 
@@ -194,8 +212,7 @@
         const data = await res.json();
         userEmail = data.email;
         // Check if the user is admin or moderator
-        isAdmin = userEmail?.endsWith('@admin.com') || userEmail?.includes('admin') || 
-                  userEmail?.endsWith('@moderator.com') || userEmail?.includes('moderator');
+        isAdmin = userEmail?.includes('admin') || userEmail?.includes('moderator');
       }
     } catch (err) {
       console.error("Failed to fetch user", err);
@@ -382,10 +399,9 @@
                 {/each} -->
                 {#each comments.filter(c => !c.replyTo) as comment}
                   <div class="comment">
-                    <!-- Main comment display -->
+
                     <p>{comment.content}</p>
 
-                    <!-- Replies -->
                     <div class="replies">
                       {#each comments.filter(r => r.replyTo === comment._id) as reply}
                         <div class="reply">
