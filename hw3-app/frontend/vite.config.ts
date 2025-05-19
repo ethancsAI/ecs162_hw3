@@ -18,4 +18,9 @@ export default defineConfig(({ mode }) => ({
       },
     },
   } : undefined,
+  test: {
+    environment: 'jsdom',
+    globals: true,
+    setupFiles: ['./vitest-setup.js']
+  }
 }))
