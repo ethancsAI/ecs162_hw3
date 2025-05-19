@@ -1,0 +1,9 @@
+Web Dev GPT
+1. Used Web Dev GPT
+2. We used it to help us plan out how to tackle the assignment because course assist was not up for most of the assignment.
+3. It helped us a lot, especially with debugging the starter code because that very buggy. It was helpful more at the beginning when we were confused and trying to figure out all the moving parts of the problem. It was decently accurate and helpful.
+
+Claude
+1. Used Claude
+2. For unit testing, we asked it questions on how to set up unit testing and ideas on implementation. We used it extensively for debugging. Additionally, we also asked it conceptual questions related to the project. 
+3. It was very helpful. With implementation, it was not very accurate in getting a working solution. It would also try to change my code majorly when we just wanted to change a smaller section. We used in an interative way where we get an implementation that was not correct and interatively debug along with claude. With concept questions, it was pretty accurate and discussed topics in a more approachable manner.
