@@ -119,7 +119,7 @@
     }
   }
 
-  async function deleteComment(comment) {
+  /*async function deleteComment(comment) {
     if (!isAdmin) return;
     
     try {
@@ -136,7 +136,12 @@
     } catch (error) {
       console.error('Error deleting comment:', error);
     }
+  }*/
+  async function deleteComment(commentId) {
+    await fetch(`/api/comments/${commentId}`, { method: 'DELETE' });
+    await loadComments(); // reload updated list
   }
+
 
   function closeCommentModal() {
     showCommentModal = false;
@@ -333,7 +338,7 @@
                   <button class="action-link reply-link" on:click={() => replyingTo = comment}>Reply</button>
                 {/if}
                 {#if isAdmin}
-                  <button class="action-link delete-link" on:click={() => deleteComment(comment)}>Delete</button>
+                  <button class="delete-link" on:click={() => deleteComment(comment._id)}>Delete</button>
                 {/if}
               </div>
             {/if}
@@ -355,7 +360,7 @@
 
             {#if comment.replies && comment.replies.length > 0}
               <div class="replies">
-                {#each comment.replies as reply}
+                <!--{#each comment.replies as reply}
                   <div class="reply">
                     <div class="reply-header">
                       <span class="comment-user">
@@ -373,6 +378,21 @@
                         <button class="action-link delete-link" on:click={() => deleteComment(reply)}>Delete</button>
                       </div>
                     {/if}
+                  </div>
+                {/each} -->
+                {#each comments.filter(c => !c.replyTo) as comment}
+                  <div class="comment">
+                    <!-- Main comment display -->
+                    <p>{comment.content}</p>
+
+                    <!-- Replies -->
+                    <div class="replies">
+                      {#each comments.filter(r => r.replyTo === comment._id) as reply}
+                        <div class="reply">
+                          <p>{reply.content}</p>
+                        </div>
+                      {/each}
+                    </div>
                   </div>
                 {/each}
               </div>
