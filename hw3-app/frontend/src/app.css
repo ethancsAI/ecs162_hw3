@@ -153,11 +153,11 @@ section:last-child {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 1.25rem;             /* slightly larger text */
-  font-weight: bold;              /* bold header */
+  font-size: 1.25rem;             
+  font-weight: bold;             
   border-bottom: 1px solid #cdcdcd;
   padding-bottom: 10px;
-  margin-bottom: 20px;            /* space between header and content */
+  margin-bottom: 20px;       
 }
 
 .sidebar-header .close-btn {

@@ -308,7 +308,6 @@
     </div>
   {/if}
   
-  <!-- Comment Modal -->
   {#if showCommentModal && selectedArticle}
     <div class="sidebar-overlay" on:click={closeCommentModal}></div>
     <div class="comment-sidebar">
