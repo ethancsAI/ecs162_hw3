@@ -24,7 +24,7 @@ enablePasswordDB: true
 # Can create passwords using python
 # python -c "import bcrypt; print(bcrypt.hashpw(b'password', bcrypt.gensalt()).decode())"
 # USE THESE USERS WHEN LOGGING INTO THE DEX UI, DONT NEED TO USE USER COLLECTION IN MONGODB, BUT WE USE MONGODB FOR COMMENT COLLECTION
-# moderator and admin should be able to delete comments, user
+# moderator and admin should be able to delete comments
 # need to store article information with comments to show the comments with the correct article, so when you query the database that the comment shows (article ID or title - any unique identifier)
 staticPasswords:
   - email: admin@hw3.com
